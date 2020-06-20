@@ -31,23 +31,23 @@ import javafx.stage.Stage;
 
 public class IveApplication extends Application {
 
-	private static final IconLoader ICON_LOADER = createIconLoader();
+    private static final IconLoader ICON_LOADER = createIconLoader();
 
-	private static IconLoader createIconLoader() {
-		var iconSizes = Set.of("16", "24", "32", "48", "64", "128", "256", "512");
-		return new IconLoader("png", iconSizes);
-	}
+    private static IconLoader createIconLoader() {
+        var iconSizes = Set.of("16", "24", "32", "48", "64", "128", "256", "512");
+        return new IconLoader("png", iconSizes);
+    }
 
-	@Override
-	public void start(Stage primaryStage) {
-		addIcons(primaryStage);
-		primaryStage.show();
-	}
+    @Override
+    public void start(Stage primaryStage) {
+        addIcons(primaryStage);
+        primaryStage.show();
+    }
 
-	private void addIcons(Stage primaryStage) {
-		Path iconPath = Path.of("icons", "ive");
-		var loadedIcons = ICON_LOADER.loadFromResources(iconPath);
-		var stageIcons = primaryStage.getIcons();
-		stageIcons.addAll(loadedIcons);
-	}
+    private void addIcons(Stage primaryStage) {
+        Path iconPath = Path.of("icons", "ive");
+        var loadedIcons = ICON_LOADER.loadFromResources(iconPath);
+        var stageIcons = primaryStage.getIcons();
+        stageIcons.addAll(loadedIcons);
+    }
 }

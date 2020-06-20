@@ -32,21 +32,21 @@ import javafx.scene.image.Image;
 
 public class IconLoader {
 
-	private final String iconFormat;
-	private final Collection<String> sizes;
+    private final String iconFormat;
+    private final Collection<String> sizes;
 
-	public IconLoader(String iconFormat, Collection<String> sizes) {
-		this.iconFormat = iconFormat;
-		this.sizes = sizes;
-	}
+    public IconLoader(String iconFormat, Collection<String> sizes) {
+        this.iconFormat = iconFormat;
+        this.sizes = sizes;
+    }
 
-	public Collection<Image> loadFromResources(Path path) {
-		return this.sizes.stream()
-			.map(size -> path.resolve(size + '.' + this.iconFormat))
-			.map(Path::toString)
-			.map(ClassLoader::getSystemResourceAsStream)
-			.filter(Objects::nonNull)
-			.map(Image::new)
-			.collect(Collectors.toUnmodifiableSet());
-	}
+    public Collection<Image> loadFromResources(Path path) {
+        return this.sizes.stream()
+            .map(size -> path.resolve(size + '.' + this.iconFormat))
+            .map(Path::toString)
+            .map(ClassLoader::getSystemResourceAsStream)
+            .filter(Objects::nonNull)
+            .map(Image::new)
+            .collect(Collectors.toUnmodifiableSet());
+    }
 }
