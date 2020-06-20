@@ -25,29 +25,28 @@
 package pl.pitcer.ive;
 
 import java.nio.file.Path;
-import java.util.Set;
-import javafx.application.Application;
-import javafx.stage.Stage;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import javafx.scene.image.Image;
 
-public class IveApplication extends Application {
+public class IconLoader {
 
-	private static final IconLoader ICON_LOADER = createIconLoader();
+	private final String iconFormat;
+	private final Collection<String> sizes;
 
-	private static IconLoader createIconLoader() {
-		var iconSizes = Set.of("16", "24", "32", "48", "64", "128", "256", "512");
-		return new IconLoader("png", iconSizes);
+	public IconLoader(String iconFormat, Collection<String> sizes) {
+		this.iconFormat = iconFormat;
+		this.sizes = sizes;
 	}
 
-	@Override
-	public void start(Stage primaryStage) {
-		addIcons(primaryStage);
-		primaryStage.show();
-	}
-
-	private void addIcons(Stage primaryStage) {
-		Path iconPath = Path.of("icons", "ive");
-		var loadedIcons = ICON_LOADER.loadFromResources(iconPath);
-		var stageIcons = primaryStage.getIcons();
-		stageIcons.addAll(loadedIcons);
+	public Collection<Image> loadFromResources(Path path) {
+		return this.sizes.stream()
+			.map(size -> path.resolve(size + '.' + this.iconFormat))
+			.map(Path::toString)
+			.map(ClassLoader::getSystemResourceAsStream)
+			.filter(Objects::nonNull)
+			.map(Image::new)
+			.collect(Collectors.toUnmodifiableSet());
 	}
 }
