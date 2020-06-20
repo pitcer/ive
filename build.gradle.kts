@@ -18,7 +18,7 @@ java {
 }
 
 application {
-	mainClassName = "pl.pitcer.ive.Ive"
+	mainClassName = "Main"
 }
 
 javafx {
