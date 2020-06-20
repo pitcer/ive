@@ -1,7 +1,7 @@
 plugins {
 	application
 	id("org.openjfx.javafxplugin") version "0.0.8"
-	id("com.github.johnrengelman.shadow") version "5.2.0"
+	id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 repositories {
@@ -22,6 +22,6 @@ application {
 }
 
 javafx {
-	version = "11"
+	version = "14"
 	modules = listOf("javafx.controls")
 }
