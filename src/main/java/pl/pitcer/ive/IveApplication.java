@@ -27,7 +27,12 @@ package pl.pitcer.ive;
 import java.nio.file.Path;
 import java.util.Set;
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import pl.pitcer.ive.image.ImageLoader;
+import pl.pitcer.ive.image.IveImageView;
 
 public class IveApplication extends Application {
 
@@ -40,11 +45,28 @@ public class IveApplication extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
+        var scene = createScene();
+        primaryStage.setScene(scene);
         addIcons(primaryStage);
+        primaryStage.setTitle("Ive");
         primaryStage.show();
     }
 
-    private void addIcons(final Stage primaryStage) {
+    private static Scene createScene() {
+        var imageView = createImageView();
+        var group = new Group(imageView);
+        return new Scene(group);
+    }
+
+    private static ImageView createImageView() {
+        var imageLoader = new ImageLoader();
+        var imageView = new IveImageView(imageLoader);
+        imageView.loadImages();
+        imageView.showNextImage();
+        return imageView;
+    }
+
+    private static void addIcons(final Stage primaryStage) {
         Path iconPath = Path.of("icons", "ive");
         var loadedIcons = ICON_LOADER.loadFromResources(iconPath);
         var stageIcons = primaryStage.getIcons();
