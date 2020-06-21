@@ -39,12 +39,12 @@ public class IveApplication extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(final Stage primaryStage) {
         addIcons(primaryStage);
         primaryStage.show();
     }
 
-    private void addIcons(Stage primaryStage) {
+    private void addIcons(final Stage primaryStage) {
         Path iconPath = Path.of("icons", "ive");
         var loadedIcons = ICON_LOADER.loadFromResources(iconPath);
         var stageIcons = primaryStage.getIcons();
