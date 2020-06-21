@@ -29,10 +29,10 @@ import java.util.Set;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import pl.pitcer.ive.image.ImageLoader;
 import pl.pitcer.ive.image.IveImageView;
+import pl.pitcer.ive.listener.KeyPressedListener;
 
 public class IveApplication extends Application {
 
@@ -55,10 +55,13 @@ public class IveApplication extends Application {
     private static Scene createScene() {
         var imageView = createImageView();
         var group = new Group(imageView);
-        return new Scene(group);
+        var scene = new Scene(group);
+        var keyListener = new KeyPressedListener(imageView);
+        scene.setOnKeyPressed(keyListener);
+        return scene;
     }
 
-    private static ImageView createImageView() {
+    private static IveImageView createImageView() {
         var imageLoader = new ImageLoader();
         var imageView = new IveImageView(imageLoader);
         imageView.loadImages();

@@ -22,48 +22,40 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.image;
+package pl.pitcer.ive.listener;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ListIterator;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import pl.pitcer.ive.listener.ImageDisplay;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
-public final class IveImageView extends ImageView implements ImageDisplay {
+public class KeyPressedListener implements EventHandler<KeyEvent> {
 
-    private final ImageLoader imageLoader;
-    private ListIterator<File> imagesIterator;
+    private final ImageDisplay imageDisplay;
 
-    public IveImageView(final ImageLoader imageLoader) {
-        this.imageLoader = imageLoader;
-    }
-
-    public void loadImages() {
-        var images = this.imageLoader.loadImages();
-        this.imagesIterator = images.listIterator();
+    public KeyPressedListener(final ImageDisplay imageDisplay) {
+        this.imageDisplay = imageDisplay;
     }
 
     @Override
-    public void showNextImage() {
-        var file = this.imagesIterator.next();
-        setImage(file);
-    }
-
-    @Override
-    public void showPreviousImage() {
-        var file = this.imagesIterator.previous();
-        setImage(file);
-    }
-
-    private void setImage(final File file) {
-        try (var imageInputStream = new FileInputStream(file)) {
-            var image = new Image(imageInputStream);
-            setImage(image);
-        } catch (final IOException exception) {
-            exception.printStackTrace();
+    public void handle(final KeyEvent event) {
+        KeyCode keyCode = event.getCode();
+        switch (keyCode) {
+            case RIGHT:
+                handleNextKey();
+                break;
+            case LEFT:
+                handlePreviousKey();
+                break;
+            default:
+                break;
         }
+    }
+
+    private void handleNextKey() {
+        this.imageDisplay.showNextImage();
+    }
+
+    private void handlePreviousKey() {
+        this.imageDisplay.showPreviousImage();
     }
 }
