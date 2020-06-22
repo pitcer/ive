@@ -27,6 +27,7 @@ package pl.pitcer.ive;
 import java.nio.file.Path;
 import java.util.Set;
 import javafx.application.Application;
+import javafx.beans.value.WritableStringValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -35,6 +36,8 @@ import pl.pitcer.ive.image.IveImageView;
 import pl.pitcer.ive.listener.KeyPressedListener;
 
 public class IveApplication extends Application {
+
+    public static final String WINDOW_TITLE = "Ive";
 
     private static final IconLoader ICON_LOADER = createIconLoader();
 
@@ -45,15 +48,16 @@ public class IveApplication extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        var scene = createScene();
+        primaryStage.setTitle(WINDOW_TITLE);
+        var windowTitle = primaryStage.titleProperty();
+        var scene = createScene(windowTitle);
         primaryStage.setScene(scene);
         addIcons(primaryStage);
-        primaryStage.setTitle("Ive");
         primaryStage.show();
     }
 
-    private static Scene createScene() {
-        var imageView = createImageView();
+    private static Scene createScene(final WritableStringValue windowTitle) {
+        var imageView = createImageView(windowTitle);
         var group = new Group(imageView);
         var scene = new Scene(group);
         var keyListener = new KeyPressedListener(imageView);
@@ -61,9 +65,9 @@ public class IveApplication extends Application {
         return scene;
     }
 
-    private static IveImageView createImageView() {
+    private static IveImageView createImageView(final WritableStringValue windowTitle) {
         var imageLoader = new ImageLoader();
-        var imageView = new IveImageView(imageLoader);
+        var imageView = new IveImageView(imageLoader, windowTitle);
         imageView.loadImages();
         imageView.showNextImage();
         return imageView;
