@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ListIterator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import pl.pitcer.ive.image.list.CyclicListIterator;
 import pl.pitcer.ive.listener.ImageDisplay;
 
 public final class IveImageView extends ImageView implements ImageDisplay {
@@ -43,7 +44,7 @@ public final class IveImageView extends ImageView implements ImageDisplay {
 
     public void loadImages() {
         var images = this.imageLoader.loadImages();
-        this.imagesIterator = images.listIterator();
+        this.imagesIterator = new CyclicListIterator<>(images);
     }
 
     @Override

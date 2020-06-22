@@ -22,26 +22,46 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.image;
+package pl.pitcer.ive.image.list;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public final class ImageLoader {
+public class CyclicListIteratorTest {
 
-    private static final FileFilter IMAGE_FILTER = new ImageFilter();
-    private static final File CURRENT_DIRECTORY = getCurrentDirectory();
+    private static final List<String> NUMBERS = List.of("1", "2", "3");
 
-    private static File getCurrentDirectory() {
-        var currentDirectoryPath = System.getProperty("user.dir");
-        return new File(currentDirectoryPath);
+    @Test
+    public void testFirstNextReturnsFirstElement() {
+        var iterator = createIterator(0);
+        var element = iterator.next();
+        Assertions.assertEquals("1", element);
     }
 
-    public List<File> loadImages() {
-        var files = CURRENT_DIRECTORY.listFiles(IMAGE_FILTER);
-        var images = List.of(files);
-        return new LinkedList<>(images);
+    @Test
+    public void testLastNextReturnsFirstElement() {
+        var iterator = createIterator(3);
+        var element = iterator.next();
+        Assertions.assertEquals("1", element);
+    }
+
+    @Test
+    public void testFirstPreviousReturnsLastElement() {
+        var iterator = createIterator(0);
+        var element = iterator.previous();
+        Assertions.assertEquals("3", element);
+    }
+
+    @Test
+    public void testLastPreviousReturnsLastElement() {
+        var iterator = createIterator(3);
+        var element = iterator.previous();
+        Assertions.assertEquals("3", element);
+    }
+
+    private ListIterator<String> createIterator(final int index) {
+        return new CyclicListIterator<>(NUMBERS, index);
     }
 }
