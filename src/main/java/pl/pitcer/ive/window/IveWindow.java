@@ -39,6 +39,8 @@ import pl.pitcer.ive.menu.IveContextMenu;
 
 public final class IveWindow implements Titled, FullScreenable, Resizable {
 
+    private static final Path IVE_ICON_PATH = Path.of("icons", "ive");
+    private static final Path STYLESHEET_PATH = Path.of("styles", "stylesheet.css");
     private static final String TITLE = "Ive";
     private static final IconLoader ICON_LOADER = createIconLoader();
 
@@ -71,6 +73,9 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
         var imageView = createImageView();
         var group = new Group(imageView);
         var scene = new Scene(group);
+        var stylesheets = scene.getStylesheets();
+        var stylesheetUrl = getStylesheetUrl();
+        stylesheets.add(stylesheetUrl);
         var keyListener = new KeyPressedListener(imageView, this);
         scene.setOnKeyPressed(keyListener);
         return scene;
@@ -87,9 +92,14 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
         return imageView;
     }
 
+    private String getStylesheetUrl() {
+        var path = STYLESHEET_PATH.toString();
+        var stylesheetUrl = ClassLoader.getSystemResource(path);
+        return stylesheetUrl.toExternalForm();
+    }
+
     private void addIcons() {
-        Path iconPath = Path.of("icons", "ive");
-        var loadedIcons = ICON_LOADER.loadFromResources(iconPath);
+        var loadedIcons = ICON_LOADER.loadFromResources(IVE_ICON_PATH);
         var stageIcons = this.stage.getIcons();
         stageIcons.addAll(loadedIcons);
     }
