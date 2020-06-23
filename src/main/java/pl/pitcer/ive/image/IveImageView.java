@@ -77,7 +77,11 @@ public final class IveImageView extends ImageView implements ImageDisplay, Reloa
             setImage(image);
             var imageName = file.getName();
             this.titledWindow.setTitleSuffix(" - " + imageName);
-            this.resizableWindow.adjustSize();
+            double width = image.getWidth();
+            double height = image.getHeight();
+            this.resizableWindow.setMinimumWidth(width);
+            this.resizableWindow.setMinimumHeight(height);
+            this.resizableWindow.center();
         } catch (final IOException exception) {
             exception.printStackTrace();
         }

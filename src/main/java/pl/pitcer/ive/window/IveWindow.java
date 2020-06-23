@@ -27,9 +27,11 @@ package pl.pitcer.ive.window;
 import java.nio.file.Path;
 import java.util.Set;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import pl.pitcer.ive.IconLoader;
 import pl.pitcer.ive.image.IveImageView;
@@ -67,7 +69,6 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
         this.stage.setTitle(TITLE);
         this.stage.setFullScreenExitHint(null);
         this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        this.stage.sizeToScene();
     }
 
     private Scene createScene() {
@@ -132,8 +133,28 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
     }
 
     @Override
-    public void adjustSize() {
-        this.stage.sizeToScene();
+    public void setMinimumWidth(final double width) {
+        var bounds = getScreenBounds();
+        var screenWidth = bounds.getWidth();
+        var minimumWidth = Math.min(width, screenWidth * 0.9);
+        this.stage.setMinWidth(minimumWidth);
+    }
+
+    @Override
+    public void setMinimumHeight(final double height) {
+        var bounds = getScreenBounds();
+        var screenHeight = bounds.getHeight();
+        var minimumHeight = Math.min(height, screenHeight * 0.9);
+        this.stage.setMinHeight(minimumHeight);
+    }
+
+    private Rectangle2D getScreenBounds() {
+        var screen = Screen.getPrimary();
+        return screen.getBounds();
+    }
+
+    @Override
+    public void center() {
         this.stage.centerOnScreen();
     }
 }

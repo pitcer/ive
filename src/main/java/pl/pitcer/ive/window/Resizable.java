@@ -26,5 +26,9 @@ package pl.pitcer.ive.window;
 
 public interface Resizable {
 
-    void adjustSize();
+    void setMinimumWidth(double width);
+
+    void setMinimumHeight(double height);
+
+    void center();
 }
