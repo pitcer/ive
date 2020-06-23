@@ -31,9 +31,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import pl.pitcer.ive.IconLoader;
-import pl.pitcer.ive.image.ImageLoader;
 import pl.pitcer.ive.image.IveImageView;
+import pl.pitcer.ive.image.loader.ImageLoader;
+import pl.pitcer.ive.image.loader.SortOrder;
 import pl.pitcer.ive.listener.KeyPressedListener;
+import pl.pitcer.ive.menu.IveContextMenu;
 
 public final class IveWindow implements Titled, FullScreenable, Resizable {
 
@@ -75,8 +77,11 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
     }
 
     private IveImageView createImageView() {
-        var imageLoader = new ImageLoader();
+        var imageLoader = new ImageLoader(SortOrder.NAME_ASCENDING);
         var imageView = new IveImageView(imageLoader, this, this);
+        var contextMenu = new IveContextMenu(imageLoader, imageView);
+        contextMenu.initialize();
+        imageView.setOnContextMenuRequested(event -> contextMenu.show(this.stage, event.getScreenX(), event.getScreenY()));
         imageView.loadImages();
         imageView.showNextImage();
         return imageView;

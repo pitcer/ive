@@ -55,9 +55,10 @@ public final class KeyPressedListener implements EventHandler<KeyEvent> {
     public void handle(final KeyEvent event) {
         var keyCode = event.getCode();
         var handler = this.handlers.get(keyCode);
-        if (handler != null) {
-            handler.run();
+        if (handler == null) {
+            return;
         }
+        handler.run();
     }
 
     private void handleNextKey() {

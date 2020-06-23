@@ -22,26 +22,22 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.image;
+package pl.pitcer.ive.image.loader;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 
-public final class ImageLoader {
+public final class ImageFilter implements FileFilter {
 
-    private static final FileFilter IMAGE_FILTER = new ImageFilter();
-    private static final File CURRENT_DIRECTORY = getCurrentDirectory();
+    private static final Set<String> IMAGE_FORMATS = Set.of(".png", ".jpg", ".jpeg");
 
-    private static File getCurrentDirectory() {
-        var currentDirectoryPath = System.getProperty("user.dir");
-        return new File(currentDirectoryPath);
-    }
-
-    public List<File> loadImages() {
-        var files = CURRENT_DIRECTORY.listFiles(IMAGE_FILTER);
-        var images = List.of(files);
-        return new LinkedList<>(images);
+    @Override
+    public boolean accept(final File file) {
+        if (!file.isFile()) {
+            return false;
+        }
+        String name = file.getName();
+        return IMAGE_FORMATS.stream().anyMatch(name::endsWith);
     }
 }

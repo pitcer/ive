@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.image;
+package pl.pitcer.ive.image.loader;
 
 import java.io.File;
 import java.io.FileFilter;

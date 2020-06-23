@@ -22,22 +22,46 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.image;
+package pl.pitcer.ive.image.loader;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public final class ImageFilter implements FileFilter {
+public final class ImageLoader implements SortOrderable {
 
-    private static final Set<String> IMAGE_FORMATS = Set.of(".png", ".jpg", ".jpeg");
+    private static final FileFilter IMAGE_FILTER = new ImageFilter();
+    private static final File CURRENT_DIRECTORY = getCurrentDirectory();
+
+    private static File getCurrentDirectory() {
+        var currentDirectoryPath = System.getProperty("user.dir");
+        return new File(currentDirectoryPath);
+    }
+
+    private SortOrder sortOrder;
+
+    public ImageLoader(final SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public List<File> loadImages() {
+        var files = CURRENT_DIRECTORY.listFiles(IMAGE_FILTER);
+        var comparator = this.sortOrder.getComparator();
+        return Stream.of(files)
+            .sorted(comparator)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     @Override
-    public boolean accept(final File file) {
-        if (!file.isFile()) {
-            return false;
-        }
-        String name = file.getName();
-        return IMAGE_FORMATS.stream().anyMatch(name::endsWith);
+    public SortOrder getSortOrder() {
+        return this.sortOrder;
+    }
+
+    @Override
+    public void setSortOrder(final SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
     }
 }
