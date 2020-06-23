@@ -22,50 +22,36 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.listener;
+package pl.pitcer.ive;
 
 import javafx.beans.value.WritableBooleanValue;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
-public class KeyPressedListener implements EventHandler<KeyEvent> {
+public class FullScreenProperty implements WritableBooleanValue {
 
-    private final ImageDisplay imageDisplay;
-    private final WritableBooleanValue fullScreen;
+    private Stage stage;
 
-    public KeyPressedListener(final ImageDisplay imageDisplay, final WritableBooleanValue fullScreen) {
-        this.imageDisplay = imageDisplay;
-        this.fullScreen = fullScreen;
+    public FullScreenProperty(final Stage stage) {
+        this.stage = stage;
     }
 
     @Override
-    public void handle(final KeyEvent event) {
-        var keyCode = event.getCode();
-        switch (keyCode) {
-            case RIGHT:
-                handleNextKey();
-                break;
-            case LEFT:
-                handlePreviousKey();
-                break;
-            case F11:
-                handleFullScreen();
-                break;
-            default:
-                break;
-        }
+    public boolean get() {
+        return this.stage.isFullScreen();
     }
 
-    private void handleNextKey() {
-        this.imageDisplay.showNextImage();
+    @Override
+    public void set(final boolean value) {
+        this.stage.setFullScreen(value);
     }
 
-    private void handlePreviousKey() {
-        this.imageDisplay.showPreviousImage();
+    @Override
+    public Boolean getValue() {
+        return get();
     }
 
-    private void handleFullScreen() {
-        boolean fullScreen = this.fullScreen.get();
-        this.fullScreen.set(!fullScreen);
+    @Override
+    public void setValue(final Boolean value) {
+        set(value);
     }
 }

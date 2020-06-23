@@ -27,9 +27,11 @@ package pl.pitcer.ive;
 import java.nio.file.Path;
 import java.util.Set;
 import javafx.application.Application;
+import javafx.beans.value.WritableBooleanValue;
 import javafx.beans.value.WritableStringValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import pl.pitcer.ive.image.ImageLoader;
 import pl.pitcer.ive.image.IveImageView;
@@ -48,19 +50,26 @@ public class IveApplication extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        primaryStage.setTitle(WINDOW_TITLE);
+        prepareStage(primaryStage);
         var windowTitle = primaryStage.titleProperty();
-        var scene = createScene(windowTitle);
+        var fullScreen = new FullScreenProperty(primaryStage);
+        var scene = createScene(windowTitle, fullScreen);
         primaryStage.setScene(scene);
         addIcons(primaryStage);
         primaryStage.show();
     }
 
-    private static Scene createScene(final WritableStringValue windowTitle) {
+    private void prepareStage(final Stage primaryStage) {
+        primaryStage.setTitle(WINDOW_TITLE);
+        primaryStage.setFullScreenExitHint(null);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+    }
+
+    private static Scene createScene(final WritableStringValue windowTitle, final WritableBooleanValue fullScreen) {
         var imageView = createImageView(windowTitle);
         var group = new Group(imageView);
         var scene = new Scene(group);
-        var keyListener = new KeyPressedListener(imageView);
+        var keyListener = new KeyPressedListener(imageView, fullScreen);
         scene.setOnKeyPressed(keyListener);
         return scene;
     }
