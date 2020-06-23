@@ -26,9 +26,10 @@ package pl.pitcer.ive.window;
 
 import java.nio.file.Path;
 import java.util.Set;
-import javafx.scene.Group;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pl.pitcer.ive.IconLoader;
 import pl.pitcer.ive.image.IveImageView;
@@ -71,8 +72,9 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
 
     private Scene createScene() {
         var imageView = createImageView();
-        var group = new Group(imageView);
-        var scene = new Scene(group);
+        var pane = new StackPane(imageView);
+        pane.setAlignment(Pos.CENTER);
+        var scene = new Scene(pane);
         var stylesheets = scene.getStylesheets();
         var stylesheetUrl = getStylesheetUrl();
         stylesheets.add(stylesheetUrl);
