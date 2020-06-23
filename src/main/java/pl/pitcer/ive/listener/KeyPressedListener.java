@@ -24,7 +24,9 @@
 
 package pl.pitcer.ive.listener;
 
+import java.util.Map;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import pl.pitcer.ive.image.ImageDisplay;
 import pl.pitcer.ive.window.FullScreenable;
@@ -33,28 +35,27 @@ public final class KeyPressedListener implements EventHandler<KeyEvent> {
 
     private final ImageDisplay imageDisplay;
     private final FullScreenable windowInFullScreen;
+    private final Map<KeyCode, Runnable> handlers;
 
     public KeyPressedListener(final ImageDisplay imageDisplay, final FullScreenable windowInFullScreen) {
         this.imageDisplay = imageDisplay;
         this.windowInFullScreen = windowInFullScreen;
+        this.handlers = createHandlers();
+    }
+
+    private Map<KeyCode, Runnable> createHandlers() {
+        return Map.ofEntries(
+            Map.entry(KeyCode.RIGHT, this::handleNextKey),
+            Map.entry(KeyCode.LEFT, this::handlePreviousKey),
+            Map.entry(KeyCode.F11, this::handleFullScreen)
+        );
     }
 
     @Override
     public void handle(final KeyEvent event) {
         var keyCode = event.getCode();
-        switch (keyCode) {
-            case RIGHT:
-                handleNextKey();
-                break;
-            case LEFT:
-                handlePreviousKey();
-                break;
-            case F11:
-                handleFullScreen();
-                break;
-            default:
-                break;
-        }
+        var handler = this.handlers.get(keyCode);
+        handler.run();
     }
 
     private void handleNextKey() {
