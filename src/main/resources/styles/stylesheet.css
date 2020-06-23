@@ -1,3 +1,7 @@
+.root {
+    -fx-background-color: #000000;
+}
+
 .context-menu {
     -fx-background-color: #2D3234;
     -fx-text-fill: white;
