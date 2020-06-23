@@ -117,5 +117,6 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
     @Override
     public void adjustSize() {
         this.stage.sizeToScene();
+        this.stage.centerOnScreen();
     }
 }
