@@ -46,8 +46,15 @@ public class IveContextMenu extends ContextMenu {
 
     public void initialize() {
         var items = getItems();
+        var reloadMenuItem = createReloadMenuItem();
         var sortMenu = createSortOrderMenu();
-        items.add(sortMenu);
+        items.addAll(reloadMenuItem, sortMenu);
+    }
+
+    private MenuItem createReloadMenuItem() {
+        var reloadMenuItem = new MenuItem("Reload");
+        reloadMenuItem.setOnAction(event -> this.imageView.reload());
+        return reloadMenuItem;
     }
 
     private Menu createSortOrderMenu() {

@@ -76,7 +76,7 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
         var stylesheets = scene.getStylesheets();
         var stylesheetUrl = getStylesheetUrl();
         stylesheets.add(stylesheetUrl);
-        var keyListener = new KeyPressedListener(imageView, this);
+        var keyListener = new KeyPressedListener(imageView, imageView, this);
         scene.setOnKeyPressed(keyListener);
         return scene;
     }
