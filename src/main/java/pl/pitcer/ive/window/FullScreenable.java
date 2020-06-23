@@ -22,18 +22,11 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive;
+package pl.pitcer.ive.window;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import pl.pitcer.ive.window.IveWindow;
+public interface FullScreenable {
 
-public class IveApplication extends Application {
+    boolean isFullScreen();
 
-    @Override
-    public void start(final Stage primaryStage) {
-        var stage = new IveWindow(primaryStage);
-        stage.initialize();
-        stage.show();
-    }
+    void toggleFullScreen();
 }

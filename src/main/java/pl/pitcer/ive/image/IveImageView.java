@@ -28,22 +28,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ListIterator;
-import javafx.beans.value.WritableStringValue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import pl.pitcer.ive.IveApplication;
 import pl.pitcer.ive.image.list.CyclicListIterator;
-import pl.pitcer.ive.listener.ImageDisplay;
+import pl.pitcer.ive.window.Titled;
 
 public final class IveImageView extends ImageView implements ImageDisplay {
 
-    private static final String WINDOW_TITLE_PREFIX = IveApplication.WINDOW_TITLE + " - ";
-
     private final ImageLoader imageLoader;
-    private final WritableStringValue windowTitle;
+    private final Titled windowTitle;
     private ListIterator<File> imagesIterator;
 
-    public IveImageView(final ImageLoader imageLoader, final WritableStringValue windowTitle) {
+    public IveImageView(final ImageLoader imageLoader, final Titled windowTitle) {
         this.imageLoader = imageLoader;
         this.windowTitle = windowTitle;
     }
@@ -70,7 +66,7 @@ public final class IveImageView extends ImageView implements ImageDisplay {
             var image = new Image(imageInputStream);
             setImage(image);
             var imageName = file.getName();
-            this.windowTitle.set(WINDOW_TITLE_PREFIX + imageName);
+            this.windowTitle.setTitleSuffix(" - " + imageName);
         } catch (final IOException exception) {
             exception.printStackTrace();
         }

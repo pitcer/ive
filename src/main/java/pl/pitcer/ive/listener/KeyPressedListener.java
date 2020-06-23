@@ -24,18 +24,19 @@
 
 package pl.pitcer.ive.listener;
 
-import javafx.beans.value.WritableBooleanValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import pl.pitcer.ive.image.ImageDisplay;
+import pl.pitcer.ive.window.FullScreenable;
 
-public class KeyPressedListener implements EventHandler<KeyEvent> {
+public final class KeyPressedListener implements EventHandler<KeyEvent> {
 
     private final ImageDisplay imageDisplay;
-    private final WritableBooleanValue fullScreen;
+    private final FullScreenable windowInFullScreen;
 
-    public KeyPressedListener(final ImageDisplay imageDisplay, final WritableBooleanValue fullScreen) {
+    public KeyPressedListener(final ImageDisplay imageDisplay, final FullScreenable windowInFullScreen) {
         this.imageDisplay = imageDisplay;
-        this.fullScreen = fullScreen;
+        this.windowInFullScreen = windowInFullScreen;
     }
 
     @Override
@@ -65,7 +66,6 @@ public class KeyPressedListener implements EventHandler<KeyEvent> {
     }
 
     private void handleFullScreen() {
-        boolean fullScreen = this.fullScreen.get();
-        this.fullScreen.set(!fullScreen);
+        this.windowInFullScreen.toggleFullScreen();
     }
 }

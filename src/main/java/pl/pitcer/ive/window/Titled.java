@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.listener;
+package pl.pitcer.ive.window;
 
-public interface ImageDisplay {
+public interface Titled {
 
-    void showNextImage();
+    String getTitle();
 
-    void showPreviousImage();
+    void setTitleSuffix(String suffix);
 }

@@ -22,36 +22,11 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive;
+package pl.pitcer.ive.image;
 
-import javafx.beans.value.WritableBooleanValue;
-import javafx.stage.Stage;
+public interface ImageDisplay {
 
-public class FullScreenProperty implements WritableBooleanValue {
+    void showNextImage();
 
-    private Stage stage;
-
-    public FullScreenProperty(final Stage stage) {
-        this.stage = stage;
-    }
-
-    @Override
-    public boolean get() {
-        return this.stage.isFullScreen();
-    }
-
-    @Override
-    public void set(final boolean value) {
-        this.stage.setFullScreen(value);
-    }
-
-    @Override
-    public Boolean getValue() {
-        return get();
-    }
-
-    @Override
-    public void setValue(final Boolean value) {
-        set(value);
-    }
+    void showPreviousImage();
 }
