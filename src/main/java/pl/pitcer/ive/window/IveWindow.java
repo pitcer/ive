@@ -35,7 +35,7 @@ import pl.pitcer.ive.image.ImageLoader;
 import pl.pitcer.ive.image.IveImageView;
 import pl.pitcer.ive.listener.KeyPressedListener;
 
-public final class IveWindow implements Titled, FullScreenable {
+public final class IveWindow implements Titled, FullScreenable, Resizable {
 
     private static final String TITLE = "Ive";
     private static final IconLoader ICON_LOADER = createIconLoader();
@@ -62,6 +62,7 @@ public final class IveWindow implements Titled, FullScreenable {
         this.stage.setTitle(TITLE);
         this.stage.setFullScreenExitHint(null);
         this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        this.stage.sizeToScene();
     }
 
     private Scene createScene() {
@@ -75,7 +76,7 @@ public final class IveWindow implements Titled, FullScreenable {
 
     private IveImageView createImageView() {
         var imageLoader = new ImageLoader();
-        var imageView = new IveImageView(imageLoader, this);
+        var imageView = new IveImageView(imageLoader, this, this);
         imageView.loadImages();
         imageView.showNextImage();
         return imageView;
@@ -111,5 +112,10 @@ public final class IveWindow implements Titled, FullScreenable {
     public void toggleFullScreen() {
         boolean fullScreen = this.stage.isFullScreen();
         this.stage.setFullScreen(!fullScreen);
+    }
+
+    @Override
+    public void adjustSize() {
+        this.stage.sizeToScene();
     }
 }

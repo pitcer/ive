@@ -31,17 +31,20 @@ import java.util.ListIterator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pl.pitcer.ive.image.list.CyclicListIterator;
+import pl.pitcer.ive.window.Resizable;
 import pl.pitcer.ive.window.Titled;
 
 public final class IveImageView extends ImageView implements ImageDisplay {
 
     private final ImageLoader imageLoader;
-    private final Titled windowTitle;
+    private final Titled titledWindow;
+    private final Resizable resizableWindow;
     private ListIterator<File> imagesIterator;
 
-    public IveImageView(final ImageLoader imageLoader, final Titled windowTitle) {
+    public IveImageView(final ImageLoader imageLoader, final Titled titledWindow, final Resizable resizableWindow) {
         this.imageLoader = imageLoader;
-        this.windowTitle = windowTitle;
+        this.titledWindow = titledWindow;
+        this.resizableWindow = resizableWindow;
     }
 
     public void loadImages() {
@@ -66,7 +69,8 @@ public final class IveImageView extends ImageView implements ImageDisplay {
             var image = new Image(imageInputStream);
             setImage(image);
             var imageName = file.getName();
-            this.windowTitle.setTitleSuffix(" - " + imageName);
+            this.titledWindow.setTitleSuffix(" - " + imageName);
+            this.resizableWindow.adjustSize();
         } catch (final IOException exception) {
             exception.printStackTrace();
         }
