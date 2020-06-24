@@ -27,10 +27,10 @@ package pl.pitcer.ive.image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ListIterator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import pl.pitcer.ive.image.list.CyclicListIterator;
+import pl.pitcer.ive.image.cursor.Cursor;
+import pl.pitcer.ive.image.cursor.cyclic.CyclicCursor;
 import pl.pitcer.ive.image.loader.ImageLoader;
 import pl.pitcer.ive.image.loader.Reloadable;
 import pl.pitcer.ive.window.Resizable;
@@ -41,7 +41,7 @@ public final class IveImageView extends ImageView implements ImageDisplay, Reloa
     private final ImageLoader imageLoader;
     private final Titled titledWindow;
     private final Resizable resizableWindow;
-    private ListIterator<File> imagesIterator;
+    private Cursor<File> imagesCursor;
 
     public IveImageView(final ImageLoader imageLoader, final Titled titledWindow, final Resizable resizableWindow) {
         this.imageLoader = imageLoader;
@@ -51,18 +51,20 @@ public final class IveImageView extends ImageView implements ImageDisplay, Reloa
 
     public void loadImages() {
         var images = this.imageLoader.loadImages();
-        this.imagesIterator = new CyclicListIterator<>(images);
+        this.imagesCursor = new CyclicCursor<>(images);
     }
 
     @Override
     public void showNextImage() {
-        var file = this.imagesIterator.next();
+        this.imagesCursor.moveNext();
+        var file = this.imagesCursor.getCurrentValue();
         setImage(file);
     }
 
     @Override
     public void showPreviousImage() {
-        var file = this.imagesIterator.previous();
+        this.imagesCursor.movePrevious();
+        var file = this.imagesCursor.getCurrentValue();
         setImage(file);
     }
 

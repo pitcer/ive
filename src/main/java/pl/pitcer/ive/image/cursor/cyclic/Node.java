@@ -22,46 +22,53 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.image.list;
+package pl.pitcer.ive.image.cursor.cyclic;
 
-import java.util.List;
-import java.util.ListIterator;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.jetbrains.annotations.Nullable;
 
-public class CyclicListIteratorTest {
+final class Node<T> {
 
-    private static final List<String> NUMBERS = List.of("1", "2", "3");
+    @Nullable
+    private Node<T> next;
+    @Nullable
+    private Node<T> previous;
+    private T value;
 
-    @Test
-    public void testFirstNextReturnsFirstElement() {
-        var iterator = createIterator(0);
-        var element = iterator.next();
-        Assertions.assertEquals("1", element);
+    Node(final T value) {
+        this.value = value;
     }
 
-    @Test
-    public void testLastNextReturnsFirstElement() {
-        var iterator = createIterator(3);
-        var element = iterator.next();
-        Assertions.assertEquals("1", element);
+    public boolean hasNext() {
+        return this.next != null;
     }
 
-    @Test
-    public void testFirstPreviousReturnsLastElement() {
-        var iterator = createIterator(0);
-        var element = iterator.previous();
-        Assertions.assertEquals("3", element);
+    @Nullable
+    public Node<T> getNext() {
+        return this.next;
     }
 
-    @Test
-    public void testLastPreviousReturnsLastElement() {
-        var iterator = createIterator(3);
-        var element = iterator.previous();
-        Assertions.assertEquals("3", element);
+    public void setNext(@Nullable final Node<T> next) {
+        this.next = next;
     }
 
-    private ListIterator<String> createIterator(final int index) {
-        return new CyclicListIterator<>(NUMBERS, index);
+    public boolean hasPrevious() {
+        return this.previous != null;
+    }
+
+    @Nullable
+    public Node<T> getPrevious() {
+        return this.previous;
+    }
+
+    public void setPrevious(@Nullable final Node<T> previous) {
+        this.previous = previous;
+    }
+
+    public T getValue() {
+        return this.value;
+    }
+
+    public void setValue(final T value) {
+        this.value = value;
     }
 }
