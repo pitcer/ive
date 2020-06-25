@@ -24,6 +24,9 @@
 
 package pl.pitcer.ive.window;
 
+/**
+ * Interface for objects with size and position
+ */
 public interface Resizable {
 
     void setMinimumWidth(double width);

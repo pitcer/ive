@@ -24,6 +24,11 @@
 
 package pl.pitcer.ive.image.cursor;
 
+/**
+ * Interface for {@link Cursor} but mutable
+ *
+ * @param <T> type of values stored in a cursor tape
+ */
 public interface MutableCursor<T> extends Cursor<T> {
 
     void set(T value);

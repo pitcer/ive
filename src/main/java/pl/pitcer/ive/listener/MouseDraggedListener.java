@@ -31,6 +31,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.input.MouseEvent;
 import pl.pitcer.ive.image.Viewportable;
 
+/**
+ * Mouse dragged event listener
+ */
 public class MouseDraggedListener implements EventHandler<MouseEvent> {
 
     private static final double SHIFT_SCALAR = 0.15;

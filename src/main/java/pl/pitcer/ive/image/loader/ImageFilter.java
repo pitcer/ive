@@ -28,6 +28,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Set;
 
+/**
+ * Class responsible for accepting only image files
+ */
 public final class ImageFilter implements FileFilter {
 
     private static final Set<String> IMAGE_FORMATS = Set.of(".png", ".jpg", ".jpeg");

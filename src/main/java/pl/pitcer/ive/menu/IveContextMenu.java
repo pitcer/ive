@@ -34,6 +34,9 @@ import pl.pitcer.ive.image.loader.Reloadable;
 import pl.pitcer.ive.image.loader.SortOrder;
 import pl.pitcer.ive.image.loader.SortOrderable;
 
+/**
+ * Decorator for {@link ContextMenu} class
+ */
 public class IveContextMenu extends ContextMenu {
 
     private SortOrderable imageLoader;

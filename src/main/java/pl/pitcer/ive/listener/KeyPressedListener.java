@@ -32,6 +32,9 @@ import pl.pitcer.ive.image.ImageDisplay;
 import pl.pitcer.ive.image.loader.Reloadable;
 import pl.pitcer.ive.window.FullScreenable;
 
+/**
+ * Keyboard key pressed event listener
+ */
 public final class KeyPressedListener implements EventHandler<KeyEvent> {
 
     private final ImageDisplay imageDisplay;

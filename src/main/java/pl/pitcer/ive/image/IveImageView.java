@@ -37,6 +37,9 @@ import pl.pitcer.ive.image.loader.Reloadable;
 import pl.pitcer.ive.window.Resizable;
 import pl.pitcer.ive.window.Titled;
 
+/**
+ * Decorator for {@link ImageView} class
+ */
 public final class IveImageView extends ImageView implements ImageDisplay, Reloadable, Viewportable {
 
     private final ImageLoader imageLoader;

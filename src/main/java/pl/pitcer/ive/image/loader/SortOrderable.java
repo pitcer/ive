@@ -24,6 +24,9 @@
 
 package pl.pitcer.ive.image.loader;
 
+/**
+ * Interface for classes with sort order
+ */
 public interface SortOrderable {
 
     SortOrder getSortOrder();

@@ -30,6 +30,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javafx.scene.image.Image;
 
+/**
+ * Loader for icons stored in system resources
+ */
 public final class IconLoader {
 
     private final String iconFormat;

@@ -28,6 +28,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.pitcer.ive.window.IveWindow;
 
+/**
+ * Implementation of {@link Application} class
+ */
 public class IveApplication extends Application {
 
     @Override

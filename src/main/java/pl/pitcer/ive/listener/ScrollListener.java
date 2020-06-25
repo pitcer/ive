@@ -29,6 +29,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.input.ScrollEvent;
 import pl.pitcer.ive.image.Viewportable;
 
+/**
+ * Scroll event listener
+ */
 public class ScrollListener implements EventHandler<ScrollEvent> {
 
     private static final double ZOOM_SCALAR = 1.1;

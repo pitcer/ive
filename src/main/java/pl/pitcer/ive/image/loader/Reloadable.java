@@ -24,6 +24,9 @@
 
 package pl.pitcer.ive.image.loader;
 
+/**
+ * Interface for classes that can be reloaded
+ */
 public interface Reloadable {
 
     void reload();

@@ -45,6 +45,9 @@ import pl.pitcer.ive.listener.MousePressedListener;
 import pl.pitcer.ive.listener.ScrollListener;
 import pl.pitcer.ive.menu.IveContextMenu;
 
+/**
+ * Wrapper for {@link Stage} class
+ */
 public final class IveWindow implements Titled, FullScreenable, Resizable {
 
     private static final Path IVE_ICON_PATH = Path.of("icons", "ive");

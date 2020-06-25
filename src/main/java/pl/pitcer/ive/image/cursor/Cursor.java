@@ -28,6 +28,11 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+/**
+ * Data structure that can be represented as a movable cursor over a tape with values
+ *
+ * @param <T> type of values stored in a cursor tape
+ */
 public interface Cursor<T> extends Iterable<T> {
 
     boolean hasNext();

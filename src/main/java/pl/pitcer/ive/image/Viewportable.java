@@ -26,6 +26,9 @@ package pl.pitcer.ive.image;
 
 import javafx.geometry.Rectangle2D;
 
+/**
+ * Interface for classes with viewport
+ */
 public interface Viewportable {
 
     Rectangle2D getPrimaryViewport();

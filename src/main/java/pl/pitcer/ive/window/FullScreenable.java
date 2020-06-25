@@ -24,6 +24,9 @@
 
 package pl.pitcer.ive.window;
 
+/**
+ * Interface for objects that can be turn into full screen mode
+ */
 public interface FullScreenable {
 
     boolean isFullScreen();

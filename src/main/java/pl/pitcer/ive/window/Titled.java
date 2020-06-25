@@ -24,6 +24,9 @@
 
 package pl.pitcer.ive.window;
 
+/**
+ * Interface for objects with title
+ */
 public interface Titled {
 
     String getTitle();

@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class responsible for loading image files from working directory
+ */
 public final class ImageLoader implements SortOrderable {
 
     private static final FileFilter IMAGE_FILTER = new ImageFilter();

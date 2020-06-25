@@ -28,6 +28,11 @@ import java.util.NoSuchElementException;
 import org.jetbrains.annotations.Nullable;
 import pl.pitcer.ive.image.cursor.MutableCursor;
 
+/**
+ * Implementation of {@link MutableCursor} that allows cyclic movement over a tape
+ *
+ * @param <T> type of values stored in a cursor tape
+ */
 public final class CyclicCursor<T> implements MutableCursor<T> {
 
     private static final int RESET_INDEX = -1;

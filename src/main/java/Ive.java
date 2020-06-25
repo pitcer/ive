@@ -24,4 +24,7 @@
 
 import pl.pitcer.ive.IveApplication;
 
+/**
+ * Class needed to display name of the application correctly
+ */
 public final class Ive extends IveApplication {}

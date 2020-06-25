@@ -27,6 +27,9 @@ package pl.pitcer.ive.image.loader;
 import java.io.File;
 import java.util.Comparator;
 
+/**
+ * Enum defining possible sort orders of file collections
+ */
 public enum SortOrder {
 
     NAME_ASCENDING("A-Z", Comparators.NAME_COMPARATOR),

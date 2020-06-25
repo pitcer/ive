@@ -29,6 +29,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Mouse button pressed event listener
+ */
 public class MousePressedListener implements EventHandler<MouseEvent> {
 
     private WritableObjectValue<Point2D> mousePosition;

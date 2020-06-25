@@ -26,6 +26,11 @@ package pl.pitcer.ive.image.cursor.cyclic;
 
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Representation of {@link CyclicCursor} tape nodes
+ *
+ * @param <T> type of value stored in the node
+ */
 final class Node<T> {
 
     @Nullable

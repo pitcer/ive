@@ -24,6 +24,9 @@
 
 package pl.pitcer.ive.image;
 
+/**
+ * Interface for classes that can show images and change it
+ */
 public interface ImageDisplay {
 
     void showNextImage();

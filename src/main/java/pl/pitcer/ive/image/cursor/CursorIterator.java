@@ -26,6 +26,11 @@ package pl.pitcer.ive.image.cursor;
 
 import java.util.Iterator;
 
+/**
+ * Default iterator for {@link Cursor}
+ *
+ * @param <T> type of values stored in a cursor tape
+ */
 public class CursorIterator<T> implements Iterator<T> {
 
     private final Cursor<? extends T> cursor;
