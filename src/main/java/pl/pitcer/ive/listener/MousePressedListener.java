@@ -22,15 +22,28 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.ive.image;
+package pl.pitcer.ive.listener;
 
-import javafx.geometry.Rectangle2D;
+import javafx.beans.value.WritableObjectValue;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 
-public interface Viewportable {
+public class MousePressedListener implements EventHandler<MouseEvent> {
 
-    Rectangle2D getPrimaryViewport();
+    private WritableObjectValue<Point2D> mousePosition;
 
-    Rectangle2D getViewport();
+    public MousePressedListener(final WritableObjectValue<Point2D> mousePosition) {
+        this.mousePosition = mousePosition;
+    }
 
-    void setViewport(Rectangle2D viewport);
+    @Override
+    public void handle(final MouseEvent event) {
+        if (event.isPrimaryButtonDown()) {
+            var x = event.getX();
+            var y = event.getY();
+            var position = new Point2D(x, y);
+            this.mousePosition.set(position);
+        }
+    }
 }

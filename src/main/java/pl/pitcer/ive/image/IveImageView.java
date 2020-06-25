@@ -98,6 +98,12 @@ public final class IveImageView extends ImageView implements ImageDisplay, Reloa
         this.resizableWindow.center();
     }
 
+    @Override
+    public Rectangle2D getPrimaryViewport() {
+        var image = getImage();
+        return toRectangle(image);
+    }
+
     private static Rectangle2D toRectangle(final Image image) {
         double width = image.getWidth();
         double height = image.getHeight();

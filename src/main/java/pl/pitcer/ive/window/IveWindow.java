@@ -26,6 +26,8 @@ package pl.pitcer.ive.window;
 
 import java.nio.file.Path;
 import java.util.Set;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -38,6 +40,8 @@ import pl.pitcer.ive.image.IveImageView;
 import pl.pitcer.ive.image.loader.ImageLoader;
 import pl.pitcer.ive.image.loader.SortOrder;
 import pl.pitcer.ive.listener.KeyPressedListener;
+import pl.pitcer.ive.listener.MouseDraggedListener;
+import pl.pitcer.ive.listener.MousePressedListener;
 import pl.pitcer.ive.listener.ScrollListener;
 import pl.pitcer.ive.menu.IveContextMenu;
 
@@ -87,8 +91,13 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
     private void setListeners(final Scene scene, final IveImageView imageView) {
         var keyListener = new KeyPressedListener(imageView, imageView, this);
         var scrollListener = new ScrollListener(imageView);
+        var mousePosition = new SimpleObjectProperty<>(Point2D.ZERO);
+        var mousePressedListener = new MousePressedListener(mousePosition);
+        var mouseDraggedListener = new MouseDraggedListener(imageView, mousePosition);
         scene.setOnKeyPressed(keyListener);
         scene.setOnScroll(scrollListener);
+        scene.setOnMousePressed(mousePressedListener);
+        scene.setOnMouseDragged(mouseDraggedListener);
     }
 
     private IveImageView createImageView() {
