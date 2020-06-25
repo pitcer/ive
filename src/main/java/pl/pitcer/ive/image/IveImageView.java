@@ -27,6 +27,7 @@ package pl.pitcer.ive.image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pl.pitcer.ive.image.cursor.Cursor;
@@ -36,7 +37,7 @@ import pl.pitcer.ive.image.loader.Reloadable;
 import pl.pitcer.ive.window.Resizable;
 import pl.pitcer.ive.window.Titled;
 
-public final class IveImageView extends ImageView implements ImageDisplay, Reloadable {
+public final class IveImageView extends ImageView implements ImageDisplay, Reloadable, Viewportable {
 
     private final ImageLoader imageLoader;
     private final Titled titledWindow;
@@ -47,6 +48,8 @@ public final class IveImageView extends ImageView implements ImageDisplay, Reloa
         this.imageLoader = imageLoader;
         this.titledWindow = titledWindow;
         this.resizableWindow = resizableWindow;
+        setPreserveRatio(true);
+        setSmooth(true);
     }
 
     public void loadImages() {
@@ -79,13 +82,25 @@ public final class IveImageView extends ImageView implements ImageDisplay, Reloa
             setImage(image);
             var imageName = file.getName();
             this.titledWindow.setTitleSuffix(" - " + imageName);
-            double width = image.getWidth();
-            double height = image.getHeight();
-            this.resizableWindow.setMinimumWidth(width);
-            this.resizableWindow.setMinimumHeight(height);
-            this.resizableWindow.center();
+            resizeWindow(image);
+            var viewport = toRectangle(image);
+            setViewport(viewport);
         } catch (final IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    private void resizeWindow(final Image image) {
+        double width = image.getWidth();
+        double height = image.getHeight();
+        this.resizableWindow.setMinimumWidth(width);
+        this.resizableWindow.setMinimumHeight(height);
+        this.resizableWindow.center();
+    }
+
+    private static Rectangle2D toRectangle(final Image image) {
+        double width = image.getWidth();
+        double height = image.getHeight();
+        return new Rectangle2D(0, 0, width, height);
     }
 }

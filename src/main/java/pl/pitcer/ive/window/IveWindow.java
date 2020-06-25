@@ -38,6 +38,7 @@ import pl.pitcer.ive.image.IveImageView;
 import pl.pitcer.ive.image.loader.ImageLoader;
 import pl.pitcer.ive.image.loader.SortOrder;
 import pl.pitcer.ive.listener.KeyPressedListener;
+import pl.pitcer.ive.listener.ScrollListener;
 import pl.pitcer.ive.menu.IveContextMenu;
 
 public final class IveWindow implements Titled, FullScreenable, Resizable {
@@ -79,9 +80,15 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
         var stylesheets = scene.getStylesheets();
         var stylesheetUrl = getStylesheetUrl();
         stylesheets.add(stylesheetUrl);
-        var keyListener = new KeyPressedListener(imageView, imageView, this);
-        scene.setOnKeyPressed(keyListener);
+        setListeners(scene, imageView);
         return scene;
+    }
+
+    private void setListeners(final Scene scene, final IveImageView imageView) {
+        var keyListener = new KeyPressedListener(imageView, imageView, this);
+        var scrollListener = new ScrollListener(imageView);
+        scene.setOnKeyPressed(keyListener);
+        scene.setOnScroll(scrollListener);
     }
 
     private IveImageView createImageView() {
@@ -89,10 +96,20 @@ public final class IveWindow implements Titled, FullScreenable, Resizable {
         var imageView = new IveImageView(imageLoader, this, this);
         var contextMenu = new IveContextMenu(imageLoader, imageView);
         contextMenu.initialize();
+        bindProperties(imageView);
         imageView.setOnContextMenuRequested(event -> contextMenu.show(this.stage, event.getScreenX(), event.getScreenY()));
         imageView.loadImages();
         imageView.showNextImage();
         return imageView;
+    }
+
+    private void bindProperties(final IveImageView imageView) {
+        var imageViewFitWidth = imageView.fitWidthProperty();
+        var imageViewFitHeight = imageView.fitHeightProperty();
+        var stageWidthProperty = this.stage.widthProperty();
+        var stageHeightProperty = this.stage.heightProperty();
+        imageViewFitWidth.bind(stageWidthProperty);
+        imageViewFitHeight.bind(stageHeightProperty);
     }
 
     private String getStylesheetUrl() {
