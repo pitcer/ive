@@ -24,6 +24,7 @@
 
 package pl.pitcer.ive.image.cursor;
 
+import java.util.Iterator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -44,6 +45,11 @@ public interface Cursor<T> extends Iterable<T> {
     int getSize();
 
     void reset();
+
+    @Override
+    default Iterator<T> iterator() {
+        return new CursorIterator<>(this);
+    }
 
     default Stream<T> stream() {
         return StreamSupport.stream(spliterator(), false);

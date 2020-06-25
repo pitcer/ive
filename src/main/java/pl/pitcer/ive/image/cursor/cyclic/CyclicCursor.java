@@ -24,10 +24,8 @@
 
 package pl.pitcer.ive.image.cursor.cyclic;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 import org.jetbrains.annotations.Nullable;
-import pl.pitcer.ive.image.cursor.CursorIterator;
 import pl.pitcer.ive.image.cursor.MutableCursor;
 
 public final class CyclicCursor<T> implements MutableCursor<T> {
@@ -130,11 +128,6 @@ public final class CyclicCursor<T> implements MutableCursor<T> {
     @Override
     public void reset() {
         this.currentIndex = RESET_INDEX;
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return new CursorIterator<>(this);
     }
 
     @Override
